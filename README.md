@@ -2,13 +2,13 @@
 
 ## Description
 
-**Windows rmrf** is a simple tool intended to delete directories that the default Windows tools (e.g. `DEL`) can't delete due to the **MAX_PATH** limitations (260 characters).
+**Windows rmrf** is a simple tool intended to delete directories that the default Windows tools (e.g. `DEL`) can't delete due to the **MAX_PATH** limitation (260 characters).
 
 The target OS is Windows only.
 
 ## Motivation
 
-I wrote this tool to overcome problems on windows whith `too long path`, in particular when attempting to delete directories with a too long path.
+I wrote this tool to overcome problems on Windows whith `too long path`, in particular when attempting to delete directories with a too long path.
 
 For example:
 
@@ -22,9 +22,9 @@ The directory name C:\test\many_nested_directories\many_nested_directories... is
 * Download the binary from the following URL:
  * https://s3.amazonaws.com/burgaud-download/winrmrf.exe
  * SHA-1 digest: `bedd20c91cb939d8a356bbc2904fbcfc3c7689e7`
-* Copy the executable in a directory included in the OS `PATH` 
+* Copy the executable in a directory included in the OS `PATH`.
 
-**Note**: To build from the source code, see section **Build** below)
+**Note**: To build from the source code, see section **Build** below.
 
 ## Usage
 
@@ -39,10 +39,10 @@ Usage:
   winrmrf [-y|--yes] <directory_to_delete>
 ```
 
-## Examples
+### Examples
 
 ```
-C:\test> winrmrf toolong
+C:\test> winrmrf many_nested_directories
     windows rmrf (winrmrf) v0.0.2
   Copyright (c) 2016 - Andre Burgaud
 
@@ -54,29 +54,29 @@ Directory 'C:\test\many_nested_directories' was successfully deleted
 The option `-y` allows to delete directories bypassing the confirmation step:
 
 ```
-C:\test> winrmrf -y toolong
+C:\test> winrmrf -y many_nested_directories
     windows rmrf (winrmrf) v0.0.2
   Copyright (c) 2016 - Andre Burgaud
 
-Directory 'C:\test\toolong' was successfully deleted
+Directory 'C:\test\many_nested_directories' was successfully deleted
 ```
 
 **Notes**:
 1. Be careful when using this tool, especially with the `-y` option. As its
 name indicates, `winrmrf` is similar to `rm -rf` on a UNIX system, therefore, it will delete the directory provided as parameter and all directories, subdirectories and files under this directory.
-1. It does not support wildcards such as ***** (star) to force entering the exact folder name and preventing the typical error of deleting more than intended.
+1. It does not support wildcards such as ***** (star) to force entering the exact folder name and to prevent the typical error of deleting more than intended.
 
 ## Build
 
 ### Requirements
 
-This tool is coded in Nim and requires the MinGW GCC compiler.
+This tool is coded in the **Nim** programing language and requires the MinGW GCC compiler.
 
 * **Nim**: http://nim-lang.org/
 * **MinGW**: http://www.mingw.org/
 * **UPX**: https://upx.github.io/ (only needed if you want to obtain maximum compression with the resuling executable)
 
-If you decide to build `winrmrf`, install Nim without MinGW, then fully install MinGW. A full MinGW install includes tools like `windres` and `strip` that are used to respectively build the resources for `winrmrf` and strip the generated executable from its symbols and sections.
+If you decide to build `winrmrf`, install Nim without MinGW, then fully install MinGW (the MinGW binaries will need to be available in the OS `PATH`). A full MinGW install includes tools like `windres` and `strip` that are used to respectively build the resources for `winrmrf` and strip the generated executable from its symbols and sections.
 
 ```
 C:\> git clone https://github.com/andreburgaud/winrmrf.git
@@ -103,7 +103,7 @@ Usage: make [run|build|clean|test|dist|lpath|help]
 
 ### Notes about the build
 
-1. If you want to avoid the burden of building the resources and compression steps, remove the *link* pragma from the top of `winrmrf.nim` `{.link: "resource.o".}`, and simply execute `make build`. The resulting executable will be in directory `bin`.
+1. If you want to avoid the burden of building the resources and compression steps, remove the *link* pragma from the top of `winrmrf.nim`, line `{.link: "resource.o".}`, and simply execute `make build`. The resulting executable will be in directory `bin`.
 2. You want to use a regular Windows terminal and not an Msys terminal to avoid the `make.bat` file to conflict with the regular `make` expecting a `Makefile`.
 
 ## Resources
