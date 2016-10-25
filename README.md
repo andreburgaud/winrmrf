@@ -2,8 +2,8 @@
 
 ## Description
 
-*Windows rmrf* is a simple tool intended to delete directories that the default 
-Windows tools (e.g. `DEL`) can't delete due to the *MAX_PATH* limitations 
+**Windows rmrf** is a simple tool intended to delete directories that the default 
+Windows tools (e.g. `DEL`) can't delete due to the **MAX_PATH** limitations 
 (260 characters).
 
 The target OS is Windows only.
@@ -27,6 +27,7 @@ The directory name C:\test\many_nested_directories\many_nested_directories... is
 
 ## Usage
 
+```
 > winrmrf --help
     windows rmrf (winrmrf) v0.0.2
   Copyright (c) 2016 - Andre Burgaud
@@ -49,7 +50,7 @@ C:\test\many_nested_directories? [y/n] y
 Directory 'C:\test\many_nested_directories' was successfully deleted
 ```
 
-The option '-y' allows to delete directories bypassing the confirmation step:
+The option `-y` allows to delete directories bypassing the confirmation step:
 
 ```
 C:\test> winrmrf -y toolong
@@ -59,7 +60,7 @@ C:\test> winrmrf -y toolong
 Directory 'C:\test\toolong' was successfully deleted
 ```
 
-*Note*: be careful when using this tool, especially with the '-y' option. As its
+**Note**: be careful when using this tool, especially with the '-y' option. As its
 name indicates, this is similar to run `rm -rf` on a UNIX system.
 
 ## Build
@@ -81,3 +82,6 @@ C:\> make dist
 ## Resources
 
 * https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx
+* http://nim-lang.org/
+* http://www.mingw.org/
+* https://upx.github.io/
