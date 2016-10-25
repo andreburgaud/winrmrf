@@ -18,7 +18,7 @@ proc createlongDirPath* =
   while i < 100:
     path &= r"\" & tooLongDir
     createDirW(path)
-    i += 1
+    inc i
 
 when isMainModule:
   ## Progam entry point

@@ -2,16 +2,13 @@
 
 ## Description
 
-**Windows rmrf** is a simple tool intended to delete directories that the default 
-Windows tools (e.g. `DEL`) can't delete due to the **MAX_PATH** limitations 
-(260 characters).
+**Windows rmrf** is a simple tool intended to delete directories that the default Windows tools (e.g. `DEL`) can't delete due to the **MAX_PATH** limitations (260 characters).
 
 The target OS is Windows only.
 
 ## Motivation
 
-I wrote this tool to overcome problems on windows whith `too long path`, in 
-particular when attempting to delete directories.
+I wrote this tool to overcome problems on windows whith `too long path`, in particular when attempting to delete directories with a too long path.
 
 For example:
 
@@ -20,10 +17,14 @@ For example:
 The directory name C:\test\many_nested_directories\many_nested_directories... is too long.
 ```
 
-## Download Binary
+## Installation
 
-* https://s3.amazonaws.com/burgaud-download/winrmrf.exe
-* SHA-1 digest: `bedd20c91cb939d8a356bbc2904fbcfc3c7689e7`
+* Download the binary from the following URL:
+ * https://s3.amazonaws.com/burgaud-download/winrmrf.exe
+ * SHA-1 digest: `bedd20c91cb939d8a356bbc2904fbcfc3c7689e7`
+* Copy the executable in a directory included in the OS `PATH` 
+
+**Note**: To build from the source code, see section **Build** below)
 
 ## Usage
 
@@ -60,8 +61,10 @@ C:\test> winrmrf -y toolong
 Directory 'C:\test\toolong' was successfully deleted
 ```
 
-**Note**: be careful when using this tool, especially with the '-y' option. As its
-name indicates, this is similar to run `rm -rf` on a UNIX system.
+**Notes**:
+1. Be careful when using this tool, especially with the `-y` option. As its
+name indicates, `winrmrf` is similar to `rm -rf` on a UNIX system, therefore, it will delete the directory provided as parameter and all directories, subdirectories and files under this directory.
+1. It does not support wildcards such as ***** (star) to force entering the exact folder name and preventing the typical error of deleting more than intended.
 
 ## Build
 
@@ -69,15 +72,39 @@ name indicates, this is similar to run `rm -rf` on a UNIX system.
 
 This tool is coded in Nim and requires the MinGW GCC compiler.
 
-* Nim: http://nim-lang.org/
-* MinGW: http://www.mingw.org/
-* UPX: https://upx.github.io/ (only needed if you want to obtain maximum compression with the resuling executable)
+* **Nim**: http://nim-lang.org/
+* **MinGW**: http://www.mingw.org/
+* **UPX**: https://upx.github.io/ (only needed if you want to obtain maximum compression with the resuling executable)
+
+If you decide to build `winrmrf`, install Nim without MinGW, then fully install MinGW. A full MinGW install includes tools like `windres` and `strip` that are used to respectively build the resources for `winrmrf` and strip the generated executable from its symbols and sections.
 
 ```
 C:\> git clone https://github.com/andreburgaud/winrmrf.git
 C:\> cd winrmrf
 C:\> make dist
 ```
+
+* The final executable will be in the `dist` directory.
+* Another option is to execute `make build` to generate a non compressed executable in directory `bin`.
+
+For other options available in the build file (`make.bat`), execute `make help`:
+
+```
+> make help
+Usage: make [run|build|clean|test|dist|lpath|help]
+  - run   : build and execute (nim c -run)
+  - build : Build executable into 'bin' directory
+  - clean : Remove all binary and temporary files
+  - test  : Execute unit tests
+  - dist  : Rebuild and compress final executable into 'dist' directory
+  - lpath : Create nested 'toolong' directories for testing
+  - help  : Show this message
+```
+
+### Notes about the build
+
+1. If you want to avoid the burden of building the resources and compression steps, remove the *link* pragma from the top of `winrmrf.nim` `{.link: "resource.o".}`, and simply execute `make build`. The resulting executable will be in directory `bin`.
+2. You want to use a regular Windows terminal and not an Msys terminal to avoid the `make.bat` file to conflict with the regular `make` expecting a `Makefile`.
 
 ## Resources
 
