@@ -1,0 +1,24 @@
+1 VERSIONINFO
+FILEVERSION     0,0,2,0
+PRODUCTVERSION  0,0,2,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+    BEGIN
+      VALUE "CompanyName", "Burgaud.com"
+      VALUE "FileDescription", "Delete Windows directories recursively"
+      VALUE "FileVersion", "0.0.2"
+      VALUE "InternalName", "winrmrf"
+      VALUE "LegalCopyright", "Copyright (c) 2016 - Andre Burgaud "
+      VALUE "OriginalFilename", "winrmrf.exe"
+      VALUE "ProductName", "Windows rmrf"
+      VALUE "ProductVersion", "0.0.2"
+    END
+  END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1252
+  END
+END
