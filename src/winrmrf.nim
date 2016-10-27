@@ -3,14 +3,14 @@
 
 {.link: "resource.o".}
 
-import os, terminal, windows, rdstdin, strutils, system
+import os, terminal, winlean, rdstdin, strutils, system
 
 const prefix = r"\\?\"
-const ver = "0.0.2"
+const ver = "0.1.1"
 const app = "windows rmrf (winrmrf)"
 const copy = "Copyright (c) 2016"
 const author = "Andre Burgaud"
-const date = "10/25/2016"
+const date = "10/26/2016"
 const confirmTmpl = """Do you really want to delete the following directory:
 $1?"""
 
@@ -23,14 +23,14 @@ proc info =
   echo()
   resetAttributes()
 
-proc version =
-  ## Display version when program invoked with -h or --help
-  echo "winrmrf $1 ($2)" % [ver, date]
-
 proc getProgramName: string =
   ## Extract the program name from the command line
   let (_, name, _) = splitFile(paramStr(0))
   name
+
+proc version =
+  ## Display version when program invoked with -h or --help
+  echo "$1 $2 ($3)" % [getProgramName(), ver, date]
 
 proc usage =
   ## Display usage for this application

@@ -1,6 +1,6 @@
 1 VERSIONINFO
-FILEVERSION     0,0,2,0
-PRODUCTVERSION  0,0,2,0
+FILEVERSION     0,1,1,0
+PRODUCTVERSION  0,1,1,0
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
@@ -8,12 +8,12 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "Burgaud.com"
       VALUE "FileDescription", "Delete Windows directories recursively"
-      VALUE "FileVersion", "0.0.2"
+      VALUE "FileVersion", "0.1.1"
       VALUE "InternalName", "winrmrf"
       VALUE "LegalCopyright", "Copyright (c) 2016 - Andre Burgaud "
       VALUE "OriginalFilename", "winrmrf.exe"
       VALUE "ProductName", "Windows rmrf"
-      VALUE "ProductVersion", "0.0.2"
+      VALUE "ProductVersion", "0.1.1"
     END
   END
 

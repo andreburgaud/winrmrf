@@ -8,7 +8,7 @@ if "%1" == "build" goto build
 if "%1" == "clean" goto clean
 if "%1" == "test"  goto test
 if "%1" == "help"  goto usage
-if "%1" == "lpath" goto lpath  
+if "%1" == "lpath" goto lpath
 if "%1" == ""      goto build
 
 REM ===========================================================================
@@ -61,6 +61,8 @@ if not exist dist (
 )
 strip -o bin\%APP%.exe bin\%APP%.exe
 upx -odist\%APP%.exe bin\%APP%.exe
+echo sha1sum:
+sha1sum dist\%APP%.exe
 echo Executable availabe in directory 'dist'
 goto :EOF
 

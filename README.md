@@ -19,9 +19,9 @@ The directory name C:\test\many_nested_directories\many_nested_directories... is
 
 ## Installation
 
-* Download the binary from the following URL:
+* Download the Windows 64-bit binary from the following URL:
  * https://s3.amazonaws.com/burgaud-download/winrmrf.exe
- * SHA-1 digest: `bedd20c91cb939d8a356bbc2904fbcfc3c7689e7`
+ * SHA-1 digest: `3fbeede882a35ad6453866bb3288d862131d9eeb`
 * Copy the executable in a directory included in the OS `PATH`.
 
 **Note**: To build from the source code, see section **Build** below.
@@ -30,7 +30,7 @@ The directory name C:\test\many_nested_directories\many_nested_directories... is
 
 ```
 > winrmrf --help
-    windows rmrf (winrmrf) v0.0.2
+    windows rmrf (winrmrf) v0.1.1
   Copyright (c) 2016 - Andre Burgaud
 
 Usage:
@@ -43,7 +43,7 @@ Usage:
 
 ```
 C:\test> winrmrf many_nested_directories
-    windows rmrf (winrmrf) v0.0.2
+    windows rmrf (winrmrf) v0.1.1
   Copyright (c) 2016 - Andre Burgaud
 
 Do you really want to delete the following directory:
@@ -55,7 +55,7 @@ The option `-y` allows to delete directories bypassing the confirmation step:
 
 ```
 C:\test> winrmrf -y many_nested_directories
-    windows rmrf (winrmrf) v0.0.2
+    windows rmrf (winrmrf) v0.1.1
   Copyright (c) 2016 - Andre Burgaud
 
 Directory 'C:\test\many_nested_directories' was successfully deleted
@@ -105,6 +105,19 @@ Usage: make [run|build|clean|test|dist|lpath|help]
 
 1. If you want to avoid the burden of building the resources and compression steps, remove the *link* pragma from the top of `winrmrf.nim`, line `{.link: "resource.o".}`, and simply execute `make build`. The resulting executable will be in directory `bin`.
 2. You want to use a regular Windows terminal and not an Msys terminal to avoid the `make.bat` file to conflict with the regular `make` expecting a `Makefile`.
+
+## Release Notes
+
+* Version 0.1.1 (10/26/2016):
+  * Built with Nim 0.15.2
+  * Replaced `windows` import with `winlean`
+* Version 0.0.2 (10/25/2016): 
+  * First release
+  * Built with Nim0.15.0
+
+## License
+
+MIT License: see included [License file](LICENSE.md).
 
 ## Resources
 
