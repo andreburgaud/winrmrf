@@ -21,7 +21,7 @@ The directory name C:\test\many_nested_directories\many_nested_directories... is
 
 * Download the Windows 64-bit binary from the following URL:
  * https://s3.amazonaws.com/burgaud-download/winrmrf.exe
- * SHA-1 digest: `3fbeede882a35ad6453866bb3288d862131d9eeb`
+ * [SHA1 file](winrmrf.exe.sha1)
 * Copy the executable in a directory included in the OS `PATH`.
 
 **Note**: To build from the source code, see section **Build** below.
@@ -30,7 +30,7 @@ The directory name C:\test\many_nested_directories\many_nested_directories... is
 
 ```
 > winrmrf --help
-    windows rmrf (winrmrf) v0.1.1
+    windows rmrf (winrmrf) v0.1.2
   Copyright (c) 2016 - Andre Burgaud
 
 Usage:
@@ -43,7 +43,7 @@ Usage:
 
 ```
 C:\test> winrmrf many_nested_directories
-    windows rmrf (winrmrf) v0.1.1
+    windows rmrf (winrmrf) v0.1.2
   Copyright (c) 2016 - Andre Burgaud
 
 Do you really want to delete the following directory:
@@ -55,7 +55,7 @@ The option `-y` allows to delete directories bypassing the confirmation step:
 
 ```
 C:\test> winrmrf -y many_nested_directories
-    windows rmrf (winrmrf) v0.1.1
+    windows rmrf (winrmrf) v0.1.2
   Copyright (c) 2016 - Andre Burgaud
 
 Directory 'C:\test\many_nested_directories' was successfully deleted
@@ -108,6 +108,9 @@ Usage: make [run|build|clean|test|dist|lpath|help]
 
 ## Release Notes
 
+* Version 0.1.2 (10/28/2016):
+  * Externalized fileversion resources for easy reuse
+  * Generate sha1sum during build
 * Version 0.1.1 (10/26/2016):
   * Built with Nim 0.15.2
   * Replaced `windows` import with `winlean`

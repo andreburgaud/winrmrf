@@ -6,7 +6,7 @@
 import os, terminal, winlean, rdstdin, strutils, system, resource
 
 const prefix = r"\\?\"
-const date = "10/26/2016"
+const date = "10/28/2016"
 const confirmTmpl = """Do you really want to delete the following directory:
 $1?"""
 
