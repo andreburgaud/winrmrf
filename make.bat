@@ -9,6 +9,7 @@ if "%1" == "clean" goto clean
 if "%1" == "test"  goto test
 if "%1" == "help"  goto usage
 if "%1" == "lpath" goto lpath
+if "%1" == "sha1"  goto sha1
 if "%1" == ""      goto build
 
 REM ===========================================================================
@@ -28,14 +29,14 @@ goto :EOF
 REM ===========================================================================
 REM RUN
 REM ===========================================================================
-REM Build the release version of the executable.
+REM Build and run the executable.
 REM ===========================================================================
 :run
 echo Build and run...
 if not exist bin (
   mkdir bin
 )
-REM windres src\%APP%.rc src\resource.o
+windres src\%APP%.rc src\resource.o
 shift
 nim c -o:bin\%APP%.exe -r src\%APP%.nim %1
 goto :EOF
@@ -51,18 +52,16 @@ REM ===========================================================================
 :dist
 call :clean
 call :build
-REM call :test
-REM if not exist bin\%APP%.exe (
-REM  echo Execute 'make build' first
-REM  goto :EOF
-REM )
+call :test
 if not exist dist (
   mkdir dist
 )
 strip -o bin\%APP%.exe bin\%APP%.exe
 upx -odist\%APP%.exe bin\%APP%.exe
-echo sha1sum:
-sha1sum dist\%APP%.exe
+REM Create sha1sum file
+cd dist
+sha1sum %APP%.exe > ..\%APP%.exe.sha1
+cd ..
 echo Executable availabe in directory 'dist'
 goto :EOF
 
@@ -76,7 +75,14 @@ echo Building...
 if not exist bin (
   mkdir bin
 )
-windres src\%APP%.rc src\resource.o
+if not exist src\resource.o (
+  echo Creating resource object file...
+  windres src\%APP%.rc src\resource.o
+)
+if not exist src\resource.nim (
+  echo Creating resource.nim file...
+  call c2nim -o:src\resource.nim src\resource.h
+)
 nim c -o:bin\%APP%.exe -d:release src\%APP%.nim
 goto :EOF
 
@@ -99,9 +105,17 @@ if exist dist (
   echo Removing dist directory...
   rmdir /s /q dist
 )
+if exist src\resource.nim (
+  echo Removing resource nim file...
+  del /q src\resource.nim
+)
 if exist src\resource.o (
   echo Removing resource object file...
   del /q src\resource.o
+)
+if exist %APP%.exe.sha1 (
+  echo Removing sha1sum file...
+  del /q %APP%.exe.sha1
 )
 goto :EOF
 

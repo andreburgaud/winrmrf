@@ -1,19 +1,24 @@
+#include "resource.h"
+
+#define VER_FILEVERSION          0,1,1,0
+#define VER_PRODUCTVERSION       0,1,1,0
+
 1 VERSIONINFO
-FILEVERSION     0,1,1,0
-PRODUCTVERSION  0,1,1,0
+FILEVERSION     VER_FILEVERSION
+PRODUCTVERSION  VER_PRODUCTVERSION
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
     BLOCK "040904E4"
     BEGIN
-      VALUE "CompanyName", "Burgaud.com"
-      VALUE "FileDescription", "Delete Windows directories recursively"
-      VALUE "FileVersion", "0.1.1"
-      VALUE "InternalName", "winrmrf"
-      VALUE "LegalCopyright", "Copyright (c) 2016 - Andre Burgaud "
-      VALUE "OriginalFilename", "winrmrf.exe"
-      VALUE "ProductName", "Windows rmrf"
-      VALUE "ProductVersion", "0.1.1"
+      VALUE "CompanyName",      VER_COMPANYNAME_STR
+      VALUE "FileDescription",  VER_FILEDESCRIPTION_STR
+      VALUE "FileVersion",      VER_FILEVERSION_STR
+      VALUE "InternalName",     VER_INTERNALNAME_STR
+      VALUE "LegalCopyright",   VER_LEGALCOPYRIGHT_STR
+      VALUE "OriginalFilename", VER_ORIGINALFILENAME_STR
+      VALUE "ProductName",      VER_PRODUCTNAME_STR
+      VALUE "ProductVersion",   VER_PRODUCTVERSION_STR
     END
   END
 

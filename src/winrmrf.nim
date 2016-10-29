@@ -3,13 +3,9 @@
 
 {.link: "resource.o".}
 
-import os, terminal, winlean, rdstdin, strutils, system
+import os, terminal, winlean, rdstdin, strutils, system, resource
 
 const prefix = r"\\?\"
-const ver = "0.1.1"
-const app = "windows rmrf (winrmrf)"
-const copy = "Copyright (c) 2016"
-const author = "Andre Burgaud"
 const date = "10/26/2016"
 const confirmTmpl = """Do you really want to delete the following directory:
 $1?"""
@@ -18,28 +14,28 @@ proc info =
   ## Display centered information each time the program is executed
   let width = terminalWidth()
   setForegroundColor fgGreen, false
-  echo center("$1 v$2" % [app, ver], width - 10)
-  echo center("$1 - $2" % [copy, author], width - 10)
+  echo center("$1 v$2" % [VER_PRODUCTNAME_STR, VER_PRODUCTVERSION_STR], width - 10)
+  echo center(VER_LEGALCOPYRIGHT_STR, width - 10)
   echo()
   resetAttributes()
 
 proc getProgramName: string =
   ## Extract the program name from the command line
-  let (_, name, _) = splitFile(paramStr(0))
-  name
+  #(_, result, _) = splitFile(paramStr(0))[1]
+  splitFile(paramStr(0))[1]
 
 proc version =
   ## Display version when program invoked with -h or --help
-  echo "$1 $2 ($3)" % [getProgramName(), ver, date]
+  echo "$1 $2 ($3)" % [getProgramName(), VER_PRODUCTVERSION_STR, date]
 
 proc usage =
   ## Display usage for this application
   setForegroundColor fgYellow, true 
   echo "Usage:"
   resetAttributes()
-  echo "  $1 [-h|--help]" % getProgramName()
-  echo "  $1 [-v|--version]" % getProgramName()
-  echo "  $1 [-y|--yes] <directory_to_delete>" % getProgramName()
+  echo """  $1 [-h|--help]
+  $1 [-v|--version]
+  $1 [-y|--yes] <directory_to_delete>""" % getProgramName()
 
 proc error(msg: string) =
   ## Display error

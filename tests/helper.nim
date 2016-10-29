@@ -14,12 +14,10 @@ proc createDirW(path: string) =
 # Create a "too long path", by recursively creating 100 nested subdirectories
 proc createlongDirPath* =
   var path = r"\\?\$1" % expandFileName(".")
-  var i = 0
-  while i < 100:
+  for _ in 0..100:
     path &= r"\" & tooLongDir
     createDirW(path)
-    inc i
-
+    
 when isMainModule:
   ## Progam entry point
   createlongDirPath()
