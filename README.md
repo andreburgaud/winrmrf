@@ -62,9 +62,10 @@ Directory 'C:\test\many_nested_directories' was successfully deleted
 ```
 
 **Notes**:
+
 1. Be careful when using this tool, especially with the `-y` option. As its
 name indicates, `winrmrf` is similar to `rm -rf` on a UNIX system, therefore, it will delete the directory provided as parameter and all directories, subdirectories and files under this directory.
-1. It does not support wildcards such as ***** (star) to force entering the exact folder name and to prevent the typical error of deleting more than intended.
+2. It does not support wildcards such as `*` (star) to force entering the exact folder name and to prevent the typical error of deleting more than intended.
 
 ## Build
 
