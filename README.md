@@ -128,7 +128,7 @@ If the build script (`project.nims`) does not work for your environment (i.e. `w
 
 ## Release Notes
 
-* Version 0.2.0 (1/14/2016):
+* Version 0.2.0 (1/14/2017):
   * Build converted from a batch file to a nimscript (project.nims)
   * Reorganized the tests
   * Built with Nim 0.16.0
