@@ -1,7 +1,7 @@
-import unittest, winrmrf, os, helper
+import unittest, winrmrf, os, mklgdir
 
 suite "winrmrf":
-  
+
   test "delete dir":
     let testDir = "test_dir"
     check(not existsDir(testDir))
@@ -13,11 +13,10 @@ suite "winrmrf":
 
   test "create long path directory":
     createlongDirPath()
-    
+
     # Calling the default removeDir causes an OSError
     expect OSError:
       removeDir(tooLongDir)
 
     # Calling the winrmrf function is successful
     check(delDir(expandFileName(tooLongDir)))
-

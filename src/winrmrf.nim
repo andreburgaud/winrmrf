@@ -6,7 +6,7 @@
 import os, terminal, winlean, rdstdin, strutils, system, resource
 
 const prefix = r"\\?\"
-const date = "10/28/2016"
+const date = "01/14/2017"
 const confirmTmpl = """Do you really want to delete the following directory:
 $1?"""
 
@@ -21,7 +21,6 @@ proc info =
 
 proc getProgramName: string =
   ## Extract the program name from the command line
-  #(_, result, _) = splitFile(paramStr(0))[1]
   splitFile(paramStr(0))[1]
 
 proc version =
@@ -30,7 +29,7 @@ proc version =
 
 proc usage =
   ## Display usage for this application
-  setForegroundColor fgYellow, true 
+  setForegroundColor fgYellow, true
   echo "Usage:"
   resetAttributes()
   echo """  $1 [-h|--help]
@@ -49,7 +48,7 @@ proc getAbsPath(dir: string): string =
     error "'$1' is not a valid directory" % dir
     usage()
     quit(1)
-  
+
   expandFileName(dir)
 
 proc confirm(msg: string): bool =
