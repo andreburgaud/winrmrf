@@ -35,7 +35,7 @@ For further derails related to files and directories with paths exceeding 260 ch
 ```
 > winrmrf --help
     windows rmrf (winrmrf) v0.2.0
-  Copyright (c) 2017 - Andre Burgaud
+  Copyright (c) 2016-2017 - Andre Burgaud
 
 Usage:
   winrmrf [-h|--help]
@@ -131,6 +131,7 @@ If the build script (`project.nims`) does not work for your environment (i.e. `w
 * Version 0.2.0 (1/14/2016):
   * Build converted from a batch file to a nimscript (project.nims)
   * Reorganized the tests
+  * Built with Nim 0.16.0
 * Version 0.1.2 (10/28/2016):
   * Externalized fileversion resources for easy reuse
   * Generate sha1sum during build
