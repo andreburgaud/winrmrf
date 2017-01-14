@@ -112,13 +112,13 @@ hash                 Generate SHA1 sum to publish the executable
 
 If the build script (`project.nims`) does not work for your environment (i.e. `windres`, `strip`, `upx` not available in the system PATH), you can simplify the process with the following steps:
 
-1. Comment out the line with the following pragama `{.link: "resource.o".}` at the beginning of `winrmrf.nim`, to obtain:
+* Comment out the line with the following pragama `{.link: "resource.o".}` at the beginning of `winrmrf.nim`, to obtain:
 
 ```
 #{.link: "resource.o".}
 ```
 
-2. From the root directory of the project, execute the following commands:
+* From the root directory of the project, execute the following commands:
 ```
 > cd src
 > c2nim resource.h
