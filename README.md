@@ -6,6 +6,8 @@
 
 The target OS is Windows only.
 
+![Winrmrf](https://www.burgaud.com/images/winrmrf.png)
+
 ## Motivation
 
 I wrote this tool to overcome problems on Windows whith `too long path`, in particular when attempting to delete directories with path length exceeding the Windows `MAX_PATH`.
@@ -16,6 +18,8 @@ For example:
 > del /q /s many_nested_directories
 The directory name C:\test\many_nested_directories\many_nested_directories... is too long.
 ```
+
+For further derails related to files and directories with paths exceeding 260 characters on Windows, see the following blog post: https://www.burgaud.com/path-too-long/.
 
 ## Installation
 
@@ -143,6 +147,7 @@ MIT License: see included [License file](LICENSE.md).
 
 ## Resources
 
+* https://www.burgaud.com/path-too-long/
 * https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx
 * http://nim-lang.org/
 * http://www.mingw.org/
