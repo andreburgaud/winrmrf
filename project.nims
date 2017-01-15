@@ -9,7 +9,7 @@ let buildDir = "build"
 
 # App
 let APP = "winrmrf"
-let VERSION = "0.2.0"
+let VERSION = "0.3.0"
 let NAME = "Windows rmrf"
 
 mode = ScriptMode.Verbose

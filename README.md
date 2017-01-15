@@ -2,9 +2,9 @@
 
 ## Description
 
-**Windows rmrf** is a simple tool intended to delete directories that the default Windows tools (e.g. `DEL`) can't delete due to the **MAX_PATH** limitation (260 characters).
+**Windows rmrf** is a simple tool intended to delete files and directories that the default Windows tools (e.g. `DEL`) can't delete due to the **MAX_PATH** limitation (260 characters).
 
-The target OS is Windows only.
+The target operating system is Windows only. The other operating systems don't expose this particular behavior.
 
 ![Winrmrf](https://www.burgaud.com/images/winrmrf.png)
 
@@ -15,61 +15,73 @@ I wrote this tool to overcome problems on Windows whith `too long path`, in part
 For example:
 
 ```
-> del /q /s many_nested_directories
-The directory name C:\test\many_nested_directories\many_nested_directories... is too long.
+> del /q /s toolong
+The directory name C:\test\toolong\toolong... is too long.
 ```
 
-For further derails related to files and directories with paths exceeding 260 characters on Windows, see the following blog post: https://www.burgaud.com/path-too-long/.
+Or:
+
+```
+> rmdir /s toolong
+toolong, Are you sure (Y/N)? Y
+toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong - The directory is not empty.
+```
+
+For further details related to files and directories with paths exceeding 260 characters on Windows, see the following blog post: https://www.burgaud.com/path-too-long/.
 
 ## Installation
 
 * Download the Windows 64-bit binary from the following URL:
  * https://s3.amazonaws.com/burgaud-download/winrmrf.exe
  * [SHA1 file](winrmrf.exe.sha1)
-* Copy the executable in a directory included in the OS `PATH`.
+* Copy the executable in a directory included in the Windows `PATH`.
 
-**Note**: To build from the source code, see section **Build** below.
+**Note**: To build from source, see section **Build** below.
 
 ## Usage
 
 ```
 > winrmrf --help
-    windows rmrf (winrmrf) v0.2.0
-  Copyright (c) 2016-2017 - Andre Burgaud
-
+                   Windows rmrf v0.3.0
+          Copyright (c) 2016-2017 - Andre Burgaud
 Usage:
-  winrmrf [-h|--help]
-  winrmrf [-v|--version]
-  winrmrf [-y|--yes] <directory_to_delete>
+  winrmrf [-yhv] [directory... | file...]
+
+Description:
+  The winrmrf utility attempts to remove directories and/or files
+  specified on the command line. By default the user is prompted for
+  confirmation prior to deleting each file or directory.
+
+Options:
+  -y, --yes     Bypass prompt to confirm file(s) deletion
+  -h, --help    Display this help and exit
+  -v, --version Output version information and exit
 ```
 
 ### Examples
 
 ```
-C:\test> winrmrf many_nested_directories
-    windows rmrf (winrmrf) v0.2.0
-  Copyright (c) 2016-2017 - Andre Burgaud
-
-Do you really want to delete the following directory:
-C:\test\many_nested_directories? [y/n] y
-Directory 'C:\test\many_nested_directories' was successfully deleted
+C:\test> winrmrf toolong
+                   Windows rmrf v0.3.0
+          Copyright (c) 2016-2017 - Andre Burgaud
+remove C:\test\toolong? [y/N] y
+winrmrf: C:\test\toolong: successfully deleted
 ```
 
-The option `-y` allows to delete directories bypassing the confirmation step:
+The option `-y` (or `--yes`) allows to delete directories bypassing the confirmation step:
 
 ```
-C:\test> winrmrf -y many_nested_directories
-    windows rmrf (winrmrf) v0.2.0
-  Copyright (c) 2016-2017 - Andre Burgaud
-
-Directory 'C:\test\many_nested_directories' was successfully deleted
+C:\test> winrmrf -y toolong
+                   Windows rmrf v0.3.0
+          Copyright (c) 2016-2017 - Andre Burgaud
+winrmrf: C:\test\toolong: successfully deleted
 ```
 
 **Notes**:
 
 1. Be careful when using this tool, especially with the `-y` option. As its
-name indicates, `winrmrf` is similar to `rm -rf` on a UNIX system, therefore, it will delete the directory provided as parameter and all subdirectories and files under this directory.
-2. It does not support wildcards such as `*` (star) to force entering the exact folder name and to prevent the typical error of deleting more than intended.
+name indicates, `winrmrf` is similar to `rm -rf` on a UNIX system, therefore, it will delete the files and/or directories provided as arguments and all subdirectories and files under any top directory.
+2. Since version 0.3.0 `winrmrf` supports wildcards such as `*` (star) or `?` (question-mark) allowing removing multiple files and directory with similar name pattern.
 
 ## Build
 
@@ -128,6 +140,12 @@ If the build script (`project.nims`) does not work for your environment (i.e. `w
 
 ## Release Notes
 
+* Version 0.3.0 (1/15/2017):
+  * Uses parseopt to parse options and arguments
+  * Support for multiple file or directory arguments
+  * Support for wildcards in the file or directory name arguments
+  * Added a CTRL+C hook
+  * Improved error handling and messages
 * Version 0.2.0 (1/14/2017):
   * Build converted from a batch file to a nimscript (project.nims)
   * Reorganized the tests
