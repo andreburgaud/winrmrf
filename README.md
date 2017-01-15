@@ -6,7 +6,7 @@
 
 The target operating system is Windows only. The other operating systems don't expose this particular behavior.
 
-![Winrmrf](https://www.burgaud.com/images/winrmrf.png)
+![Winrmrf Screenshot](https://cloud.githubusercontent.com/assets/6396088/21960346/7e692992-daad-11e6-8a9a-9ee903c16689.png)
 
 ## Motivation
 
@@ -24,17 +24,15 @@ Or:
 ```
 > rmdir /s toolong
 toolong, Are you sure (Y/N)? Y
-toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong\toolong - The directory is not empty.
+toolong\toolong\toolong\toolong\toolong\...\toolong - The directory is not empty.
 ```
 
 For further details related to files and directories with paths exceeding 260 characters on Windows, see the following blog post: https://www.burgaud.com/path-too-long/.
 
 ## Installation
 
-* Download the Windows 64-bit binary from the following URL:
- * https://s3.amazonaws.com/burgaud-download/winrmrf.exe
- * [SHA1 file](winrmrf.exe.sha1)
-* Copy the executable in a directory included in the Windows `PATH`.
+* Download the Windows 64-bit binary of `winrmrf` version 0.3.0 from the release page: https://github.com/andreburgaud/winrmrf/releases/download/v0.3.0/winrmrf.exe (SHA1 digest: d9c867cfb352c36099749029b7b6998420a36293)
+* Copy the executable `winrmrf.exe` in a directory included in the Windows `PATH`.
 
 **Note**: To build from source, see section **Build** below.
 
@@ -81,7 +79,7 @@ winrmrf: C:\test\toolong: successfully deleted
 
 1. Be careful when using this tool, especially with the `-y` option. As its
 name indicates, `winrmrf` is similar to `rm -rf` on a UNIX system, therefore, it will delete the files and/or directories provided as arguments and all subdirectories and files under any top directory.
-2. Since version 0.3.0 `winrmrf` supports wildcards such as `*` (star) or `?` (question-mark) allowing removing multiple files and directory with similar name pattern.
+2. Since version 0.3.0 `winrmrf` supports wildcards such as `*` (star) or `?` (question-mark) allowing removing multiple files and directory with similar name patterns.
 
 ## Build
 
@@ -122,9 +120,9 @@ hash                 Generate SHA1 sum to publish the executable
 
 ### Manual build
 
-If the build script (`project.nims`) does not work for your environment (i.e. `windres`, `strip`, `upx` not available in the system PATH), you can simplify the process with the following steps:
+If the build script (`project.nims`) does not work for your environment (i.e. `windres`, `strip`, `upx` not available in the system PATH), you can shortcut the process with the following manual steps:
 
-* Comment out the line with the following pragama `{.link: "resource.o".}` at the beginning of `winrmrf.nim`, to obtain:
+* At the beginning of `winrmrf.nim`, comment out the line starting with the following pragama `{.link: "resource.o".}`, to obtain:
 
 ```
 #{.link: "resource.o".}
