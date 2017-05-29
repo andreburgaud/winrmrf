@@ -9,8 +9,11 @@ let buildDir = "build"
 
 # App
 let APP = "winrmrf"
-let VERSION = "0.3.0"
+let VERSION = "0.4.0"
 let NAME = "Windows rmrf"
+
+# Project
+let PROJECT = "Makefile"
 
 mode = ScriptMode.Verbose
 #mode = ScriptMode.Silent
@@ -23,7 +26,7 @@ task version, "Show project version and Nim compiler version":
 
 task test, "Runs the test suite":
   echo "Running test suite"
-  exec "nim build project"
+  exec "nim build $#" % PROJECT
   exec "nim c -r tests/all_test"
 
 
@@ -39,14 +42,14 @@ task res, "Build resources":
       exec "c2nim -o:resource.nim resource.h"
 
 
-# Requires: windres, strip, upx and sha1sum to be in the PATH
+# Requires: windres, strip and upx to be in the PATH
 task release, "Compile winrmrf in release mode":
   rmDir distDir
   mkDir distDir
 
-  exec "nim res project"
+  exec "nim res $#" % PROJECT
 
-  exec "nim test project"
+  exec "nim test $#" % PROJECT
 
   withDir "src":
     echo "Building release $#" % APP
@@ -56,10 +59,7 @@ task release, "Compile winrmrf in release mode":
     mvFile APP.toExe, distExe
 
   # Can be commented out if upx and/or strip are not in the PATH
-  exec "nim upx project"
-
-  # Can be commented out if sha1sum is not in the PATH
-  exec "nim hash project"
+  exec "nim upx $#" % PROJECT
 
 
 # Requires both strip and upx in the PATH
@@ -91,11 +91,11 @@ task upx, "Compile winrmrf in release mode and compress":
       echo "Executable file dist/$# does not exist. Execute 'nim release project' first." % APP.toExe
 
 
-task build, "Compile syscoretools in debug mode":
+task build, "Compile winrmrf in debug mode":
   if not existsDir buildDir:
     mkDir buildDir
 
-  exec "nim res project"
+  exec "nim res $#" % PROJECT
 
   withDir "src":
     echo "Building debug " & APP
@@ -128,21 +128,3 @@ task clean, "Delete generated binaries":
   for cache in @["src/nimcache", "tests/nimcache"]:
     echo "Deleting cache: $#" % cache
     rmDir cache
-
-
-task hash, "Generate SHA1 sum to publish the executable":
-  let command = "sha1sum"
-
-  echo "Generating SHA1 sum file for the release version of $#" % APP.toExe
-
-  withDir distDir:
-    if fileExists APP.toExe:
-      try:
-        exec """CMD /K $# $# > ..\$#.sha1 & exit""" % [command, APP.toExe, APP.toExe]
-        if fileExists r"..\$#.sha1" % APP.toExe:
-          echo "$#.sha1 generated successfully." % APP.toExe
-      except:
-        echo "WARNING: SHA1 file failed to be generated (most probably because sha1sum.exe is not in the PATH)."
-        echo "         This has no impact on the generated binary and is intended only for distribution."
-    else:
-      echo "Executable file dist/$# does not exist. Execute 'nim release project' first." % APP.toExe

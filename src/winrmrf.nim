@@ -154,7 +154,7 @@ proc doCommand(filenames: seq[string], optYes: bool) =
   for f in files:
     processFile(f, optYes)
 
-proc main() =
+proc main* =
   ## Main procedure. Analyze options and arguments, prior to trigger
   ## the processing of the command via `doCommand`
   printInfo()

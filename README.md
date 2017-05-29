@@ -31,16 +31,18 @@ For further details related to files and directories with paths exceeding 260 ch
 
 ## Installation
 
-* Download the Windows 64-bit binary of `winrmrf` version 0.3.0 from the release page: https://github.com/andreburgaud/winrmrf/releases/download/v0.3.0/winrmrf.exe (SHA1 digest: d9c867cfb352c36099749029b7b6998420a36293)
-* Copy the executable `winrmrf.exe` in a directory included in the Windows `PATH`.
+* Binary 64-bit versions of `winrmrf` are available in the releases section of this repo on GitHub: https://github.com/andreburgaud/winrmrf/releases.
+* Download the latest version.
+* If the package is a zip file, extract the executable from the zip file.
+* Copy the executable, `winrmrf.exe`, into a directory included in your Windows `PATH`.
 
-**Note**: To build from source, see section **Build** below.
+**Note**: If you prefer building the product yourself, see section **Build** below.
 
 ## Usage
 
 ```
 > winrmrf --help
-                   Windows rmrf v0.3.0
+                   Windows rmrf v0.4.0
           Copyright (c) 2016-2017 - Andre Burgaud
 Usage:
   winrmrf [-yhv] [directory... | file...]
@@ -60,7 +62,7 @@ Options:
 
 ```
 C:\test> winrmrf toolong
-                   Windows rmrf v0.3.0
+                   Windows rmrf v0.4.0
           Copyright (c) 2016-2017 - Andre Burgaud
 remove C:\test\toolong? [y/N] y
 winrmrf: C:\test\toolong: successfully deleted
@@ -70,7 +72,7 @@ The option `-y` (or `--yes`) allows to delete directories bypassing the confirma
 
 ```
 C:\test> winrmrf -y toolong
-                   Windows rmrf v0.3.0
+                   Windows rmrf v0.4.0
           Copyright (c) 2016-2017 - Andre Burgaud
 winrmrf: C:\test\toolong: successfully deleted
 ```
@@ -96,31 +98,36 @@ If you decide to build `winrmrf`, install Nim without MinGW, then fully install 
 ```
 > git clone https://github.com/andreburgaud/winrmrf.git
 > cd winrmrf
-> nim release project
+> make release
 > cd dist
 > winrmrf -f
 ```
 
-Another option is to execute `nim build project` to generate a non compressed executable in directory `build`.
+Another option is to execute `make build` to generate a non compressed executable in directory `build`.
 
-For other options available in the build file (`project.nims`), execute `nim help project`:
+For other options available in the build file (`Makefile.nims`), in a windows terminal, execute `make help`, or simply `make`:
 
 ```
-> nim help project
-Hint: used config file 'C:\Users\andre\AB\Nim\config\nim.cfg' [Conf]
+> make
+
+Usage:
+  make <task>
+
+The tasks are:
+
+help                 Display the list of available tasks
 version              Show project version and Nim compiler version
 test                 Runs the test suite
 res                  Build resources
 release              Compile winrmrf in release mode
 upx                  Compile winrmrf in release mode and compress
-build                Compile syscoretools in debug mode
+build                Compile winrmrf in debug mode
 clean                Delete generated binaries
-hash                 Generate SHA1 sum to publish the executable
 ```
 
 ### Manual build
 
-If the build script (`project.nims`) does not work for your environment (i.e. `windres`, `strip`, `upx` not available in the system PATH), you can shortcut the process with the following manual steps:
+If the build script (`Makefile.nims`) does not work for your environment (i.e. `windres`, `strip`, `upx` not available in the system `PATH`), you can shortcut the process with the following manual steps:
 
 * At the beginning of `winrmrf.nim`, comment out the line starting with the following pragama `{.link: "resource.o".}`, to obtain:
 
@@ -138,6 +145,11 @@ If the build script (`project.nims`) does not work for your environment (i.e. `w
 
 ## Release Notes
 
+* Version 0.4.0 (5/29/2017):
+  * Simplified the build process (abstraction via `make.bat`)
+  * Removed sha1sum from build process
+  * Binary built with Nim 0.17.0
+  * Binary compressed with UPX 3.94
 * Version 0.3.0 (1/15/2017):
   * Uses parseopt to parse options and arguments
   * Support for multiple file or directory arguments

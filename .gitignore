@@ -3,3 +3,4 @@ nimcache/
 *.ndb
 *.o
 resource.nim
+*.zip
